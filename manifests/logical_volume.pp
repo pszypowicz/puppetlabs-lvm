@@ -12,7 +12,9 @@ define lvm::logical_volume (
 ) {
 
   validate_bool($mountpath_require)
+  validate_bool($create_mountpath)
 
+  #added option to create mountpath, but without recursion
   if $create_mountpath {
     file{'$mountpath': 
       ensure => 'directory',
