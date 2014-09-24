@@ -8,9 +8,16 @@ define lvm::logical_volume (
   $fs_type           = 'ext4',
   $mountpath         = "/${name}",
   $mountpath_require = false,
+  $create_mountpath  = false,
 ) {
 
   validate_bool($mountpath_require)
+
+  if $create_mountpath {
+    file{'$mountpath': 
+      ensure => 'directory',
+    }
+  }
 
   if $mountpath_require {
     Mount {
